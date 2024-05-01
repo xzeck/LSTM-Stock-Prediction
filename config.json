@@ -1,0 +1,50 @@
+{
+  "ALPHAVANTAGE_API_KEY": "",
+  "ALPHAVANTAGE_URL": "https://www.alphavantage.co/query?function=TIME_SERIES_{time_series}&outputsize=full&symbol={symbol}&apikey={apikey}",
+  "model_name_template": "LSTM",
+  "ticker": "IBM",
+  "time_series_type": "Daily",
+  "save_file_name_template": "stock_market_data-{ticker}-{date}-{time_series_type}.csv",
+  "load_model": false,
+  "model_dir": "models",
+  "dropout": 0.2,
+  "epochs": 20,
+  "batch_size": 32,
+  "sequence_length": 10,
+  "early_stopping_patience": 10,
+  "loss": "mean_absolute_error",
+  "learning_rate": 0.0001,
+  "run_state": "train",
+  "layers": [
+    {
+      "type": "lstm",
+      "neurons": 250,
+      "input_timesteps": 10,
+      "input_dim": 5,
+      "return_seq": true
+    },
+    {
+      "type": "dropout",
+      "rate": 0.2
+    },
+    {
+      "type": "lstm",
+      "neurons": 250,
+      "return_seq": true
+    },
+    {
+      "type": "lstm",
+      "neurons": 250,
+      "return_seq": false
+    },
+    {
+      "type": "dropout",
+      "rate": 0.2
+    },
+    {
+      "type": "dense",
+      "neurons": 1,
+      "activation": "linear"
+    }
+  ]
+}
